@@ -20,7 +20,7 @@ const getUsers = async(req,res)=>{
         })
     } catch (error) {
         res.status(404).json({
-            message: error
+            message: 'waxbaa qaldan Fadlan'
         })
     }
 }
@@ -81,10 +81,10 @@ const deleteUser = async(req,res)=>{
 
     try {
         const updateUsers = await prisma.User.delete({
-            where:{userId:+idUser},
+            where:{userId: idUser},
         })
         res.json({
-            message: `deleted User ${idUser}`,
+            message: `deleted User ID : ${idUser}`,
           });
     } catch (error) {
         res.status(404).json({
@@ -101,16 +101,16 @@ const findUser = async(req,res)=>{
     try {
         const findUsers = await prisma.User.findUnique({
             where:{
-                userId:+byId,
+                userId: byId,
                 userName,
                 email,
                 password
             },
         })
         res.json({
-            message: `find User ${byId}`,
-            findUsers
-            // status: "waa lasoo heley xogta"
+            message: `find User ID:  ${byId}`,
+            // findUsers
+            status: "waa lasoo heley xogta"
           });
     } catch (error) {
         res.status(404).json({
@@ -125,3 +125,4 @@ module.exports = {
     deleteUser,
     findUser
 }
+
