@@ -1,20 +1,12 @@
 {
-  "name": "jamaamesupermarket",
+  "name": "backend",
   "version": "1.0.0",
   "description": "waxaan ku dhisnay PERN stack",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon server/app.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@prisma/client": "^4.16.2",
-    "bcryptjs": "^2.4.3",
-    "dotenv": "^16.3.1",
-    "express": "^4.18.2",
-    "nodemon": "^2.0.22",
-    "prisma": "^4.16.2"
-  }
+  "license": "ISC"
 }
