@@ -23,3 +23,109 @@ model user {
   isAdmin Boolean @default(true)
   role ROLES[]
 }
+
+model Products {
+  ProductID          Int                @id @default(autoincrement())
+  productName        String
+  productDescription String
+  brand              String
+  category           String
+  price              Int
+  stock              Int
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
+  orderItem          orderItems[]
+  ProductSupplier    ProductSuppliers[]
+  TransactionItems   TransactionItems[]
+}
+
+model orderItems {
+  orderItemId Int      @id @default(autoincrement())
+  Quantity    Int
+  Price       Decimal
+  ProductID   Int
+  OrderID     Int
+  orderItem   Orders   @relation(fields: [OrderID], references: [OrderID])
+  product     Products @relation(fields: [ProductID], references: [ProductID])
+}
+
+model Customers {
+  CustomerID  Int      @id @default(autoincrement())
+  FirstName   String
+  LastName    String
+  Email       String   @unique
+  Address     String
+  PhoneNumber String   @unique
+  City        String
+  createdAt   DateTime @default(now())
+  updateAt    DateTime @updatedAt
+  orders      Orders[]
+}
+
+model Orders {
+  OrderID     Int          @id @default(autoincrement())
+  OrderDate   DateTime     @default(now())
+  TotalAmount Int
+  OrderStatus String
+  status      String
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  CustomerID  Int
+  customers   Customers    @relation(fields: [OrderID], references: [CustomerID])
+  orderItem   orderItems[]
+}
+
+model Emplooyee {
+  EmployeeID  Int      @id @default(autoincrement())
+  FirstName   String
+  LastName    String
+  Email       String   @unique
+  Address     String
+  PhoneNumber String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Supplier {
+  SupplierID      Int                @id @default(autoincrement())
+  SupplierName    String
+  ContactName     String
+  Address         String
+  PhoneNumber     String
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+  ProductSupplier ProductSuppliers[]
+}
+
+model ProductSuppliers {
+  ProductSupplierID Int      @id @default(autoincrement())
+  ProductID         Int
+  SupplierID        Int
+  Suppliers         Supplier @relation(fields: [SupplierID], references: [SupplierID])
+  product           Products @relation(fields: [ProductSupplierID], references: [ProductID])
+  createdAt         DateTime @default(now())
+  updateAt          DateTime @updatedAt
+}
+
+model Transactions {
+  TransactionID    Int                @id @default(autoincrement())
+  transactionDate  DateTime           @default(now())
+  PaymentMethod    String
+  TotalAmount      Decimal
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  TransactionItems TransactionItems[]
+}
+
+model TransactionItems {
+  TransactionItemID Int          @id @default(autoincrement())
+  TransactionID     Int
+  ProductID         Int
+  Quantity          Int
+  Price             Decimal
+  transactions      Transactions @relation(fields: [TransactionItemID], references: [TransactionID])
+  Products          Products?    @relation(fields: [productsProductID], references: [ProductID])
+  productsProductID Int?
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+}
