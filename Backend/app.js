@@ -4,3 +4,5 @@ if(name === "Deek"){
 }else{
     console.log(`waanu ku xunnahay kumanan casuumin:  ${name}`)
 }
+
+console.log('Hello WOrld')
